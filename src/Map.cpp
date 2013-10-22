@@ -2,7 +2,7 @@
  * Map.cpp
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #include "Map.h"
@@ -15,7 +15,6 @@ Map::Map()
 
 Map::~Map()
 {
-    // TODO Auto-generated destructor stub
 }
 
 Map::Map(int numColumns, int numRows)
@@ -124,17 +123,12 @@ bool Map::isValidMap()
     {
         hasValidPath = isValidPath(*start, *end);
     }
-
-    // has a start
-    // has an end
-    // has a valid path from these two points
     return hasStart && hasEnd && hasValidPath;
 }
 
 bool Map::isValidPath(Cell src, Cell dest)
 {
-    //return !findPath(src, dest).empty();
-    Path path(std::make_shared<std::vector<std::vector<std::shared_ptr<Cell>>>>(matrix), mapWidth, mapHeight);
+    Path path(std::make_shared<std::vector<std::vector<std::shared_ptr<Cell>>> >(matrix), mapWidth, mapHeight);
     return path.validPath(src, dest);
 }
 

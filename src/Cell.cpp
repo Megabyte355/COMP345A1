@@ -2,7 +2,7 @@
  * Cell.cpp
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #include "Cell.h"
@@ -25,7 +25,6 @@ Cell::Cell(CellType cellType)
 
 Cell::~Cell()
 {
-    // TODO Auto-generated destructor stub
 }
 
 Cell::CellType Cell::getType()

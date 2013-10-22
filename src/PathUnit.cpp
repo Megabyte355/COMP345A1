@@ -2,7 +2,7 @@
  * PathUnit.cpp
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #include "PathUnit.h"
@@ -11,6 +11,7 @@ PathUnit::PathUnit()
 {
     x = 0;
     y = 0;
+    depth = 0;
 }
 
 PathUnit::PathUnit(int x, int y, int depth)
@@ -22,7 +23,6 @@ PathUnit::PathUnit(int x, int y, int depth)
 
 PathUnit::~PathUnit()
 {
-    // TODO Auto-generated destructor stub
 }
 
 std::vector<PathUnit> PathUnit::getNeighbors()

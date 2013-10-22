@@ -2,7 +2,7 @@
  * Cell.h
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #ifndef CELL_H_

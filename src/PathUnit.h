@@ -2,7 +2,7 @@
  * PathUnit.h
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #ifndef PATHUNIT_H_
@@ -19,7 +19,7 @@ class PathUnit
         int depth;
 
         PathUnit();
-        PathUnit(int,int,int);
+        PathUnit(int, int, int);
         ~PathUnit();
 
         bool operator==(PathUnit&);

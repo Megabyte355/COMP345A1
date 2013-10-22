@@ -2,12 +2,12 @@
  * PathFinder.cpp
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #include "Path.h"
 
-Path::Path(std::shared_ptr<std::vector<std::vector<std::shared_ptr<Cell>>>> m, int width, int height)
+Path::Path(std::shared_ptr<std::vector<std::vector<std::shared_ptr<Cell>>> >m, int width, int height)
 {
     matrix = m;
     mapWidth = width;
@@ -31,7 +31,6 @@ std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
     int destinationDepth = 0;
     std::vector<PathUnit> path;
     path.push_back(PathUnit(src.getX(), src.getY(), depth));
-
 
     while (!destinationFound && depth < path.size())
     {

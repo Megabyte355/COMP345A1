@@ -2,7 +2,7 @@
  * PathFinder.h
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #ifndef PATHFINDER_H_

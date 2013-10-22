@@ -2,7 +2,7 @@
  * Map.h
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #ifndef MAP_H_
@@ -15,12 +15,11 @@
 #include <algorithm>
 #include <iostream>
 
-
 class Map
 {
     public:
         Map();
-        Map(int,int);
+        Map(int, int);
         ~Map();
 
         // Map properties
@@ -28,18 +27,18 @@ class Map
         int getHeight();
 
         // Cell operations
-        std::shared_ptr<Cell> getCell(int,int);
+        std::shared_ptr<Cell> getCell(int, int);
         std::shared_ptr<Cell> getStartCell();
         std::shared_ptr<Cell> getEndCell();
-        void setCell(Cell::CellType,int,int);
-        void setStartCell(int,int);
-        void setEndCell(int,int);
+        void setCell(Cell::CellType, int, int);
+        void setStartCell(int, int);
+        void setEndCell(int, int);
 
         // Validations
         bool isValidMap();
         bool isValidPath(Cell, Cell);
         bool isValidCell(Cell);
-        bool isValidCell(int,int);
+        bool isValidCell(int, int);
 
         // Path
         //std::vector<PathUnit> findPath(Cell, Cell);
@@ -47,9 +46,9 @@ class Map
         void printMap();
         void resetMap();
     private:
-        std::vector<std::vector<std::shared_ptr<Cell>>> matrix;
+        std::vector<std::vector<std::shared_ptr<Cell>>>matrix;
         int mapWidth;
         int mapHeight;
-};
+    };
 
 #endif /* MAP_H_ */

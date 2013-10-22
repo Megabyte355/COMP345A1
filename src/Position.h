@@ -2,7 +2,7 @@
  * Position.h
  *
  *  Created on: Oct 21, 2013
- *      Author: Gary
+ *      Author: Gary Chang
  */
 
 #ifndef POSITION_H_
@@ -14,7 +14,7 @@ class Position
         int x;
         int y;
         Position();
-        Position(int,int);
+        Position(int, int);
         ~Position();
 };
 
