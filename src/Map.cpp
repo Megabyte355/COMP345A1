@@ -162,8 +162,10 @@ std::vector<PathUnit> Map::findPath(Cell src, Cell dest)
         return path;
     }
 
+    // The real algorithm begins here
     while (!destinationFound)
     {
+        // If we still didn't find the destination, it means it's unreachable
         if (depth > path.size())
         {
             path.clear();

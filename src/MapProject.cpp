@@ -22,30 +22,40 @@ int main()
     int endX = 0;
     int endY = 0;
 
-    cout << "Welcome to the Map Editor!" << endl << endl;
-    cout << "First, let's generate a map before we can edit it!" << endl;
+//    cout << "Welcome to the Map Editor!" << endl << endl;
+//    cout << "First, let's generate a map before we can edit it!" << endl;
+//
+//    cout << "Please enter numbers between 1 and 10!" << endl;
+//    cout << "Length of map: ";
+//    cin >> columns;
+//    cout << "Width of map: ";
+//    cin >> rows;
+//
+//    cout << "Generating a map of size " << columns << " x " << rows << " ..." << endl << endl;
 
-    cout << "Please enter numbers between 1 and 10!" << endl;
-    cout << "Length of map: ";
-    cin >> columns;
-    cout << "Width of map: ";
-    cin >> rows;
-
-    cout << "Generating a map of size " << columns << " x " << rows << " ..." << endl << endl;
+    // TEST CODE
+    columns = 10;
+    rows = 10;
 
     Map m(columns, rows);
 
-    cout << "Define a start point" << endl;
-    cout << "Start x: ";
-    cin >> startX;
-    cout << "Start y: ";
-    cin >> startY;
+//    cout << "Define a start point" << endl;
+//    cout << "Start x: ";
+//    cin >> startX;
+//    cout << "Start y: ";
+//    cin >> startY;
+//
+//    cout << "Define an end point" << endl;
+//    cout << "End x: ";
+//    cin >> endX;
+//    cout << "End y: ";
+//    cin >> endY;
 
-    cout << "Define an end point" << endl;
-    cout << "End x: ";
-    cin >> endX;
-    cout << "End y: ";
-    cin >> endY;
+    // TEST CODE
+    startX = 1;
+    startY = 1;
+    endX = 8;
+    endY = 8;
 
     m.setStartCell(startX, startY);
     m.setEndCell(endX, endY);
