@@ -1,9 +1,9 @@
 //============================================================================
-// Name        : MapProject.cpp
-// Author      : Gary
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Name        : Dungeons and Dragons Map Implementation
+// Author      : Gary Chang
+// Version     : 1.0
+// Copyright   : None
+// Description : Assignment 1 - Map
 //============================================================================
 
 #include <iostream>
