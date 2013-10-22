@@ -9,7 +9,7 @@
 #define MAP_H_
 
 #include "Cell.h"
-#include "PathUnit.h"
+#include "Path.h"
 #include <memory>
 #include <vector>
 #include <algorithm>

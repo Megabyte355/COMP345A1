@@ -132,7 +132,8 @@ bool Map::isValidMap()
 bool Map::isValidPath(Cell src, Cell dest)
 {
     //return !findPath(src, dest).empty();
-    return false;
+    Path path(std::make_shared<std::vector<std::vector<std::shared_ptr<Cell>>>>(matrix), mapWidth, mapHeight);
+    return path.validPath(src, dest);
 }
 
 bool Map::isValidCell(Cell c)
