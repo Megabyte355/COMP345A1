@@ -57,3 +57,20 @@ bool PathUnit::containedIn(std::vector<PathUnit> vp)
     }
     return false;
 }
+
+bool PathUnit::isNeighbor(PathUnit p)
+{
+    if ( p.x == this->x )
+    {
+        return (p.y == this->y - 1) || (p.y == this->y + 1);
+    }
+    else if (p.y == this->y)
+    {
+        return (p.x == this->x - 1) || (p.x == this->x + 1);
+    }
+    else
+    {
+        return false; 
+    }
+}
+

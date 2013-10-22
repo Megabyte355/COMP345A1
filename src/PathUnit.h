@@ -24,7 +24,9 @@ class PathUnit
 
         bool operator==(PathUnit&);
         bool containedIn(std::vector<PathUnit>);
+        bool isNeighbor(PathUnit);
         std::vector<PathUnit> getNeighbors();
+
 };
 
 #endif /* PATHUNIT_H_ */

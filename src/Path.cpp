@@ -19,6 +19,21 @@ Path::~Path()
     matrix.reset();
 }
 
+void Path::printPath(std::vector<PathUnit> v)
+{
+    for (PathUnit p : v)
+    {
+        if (p == v.back())
+        {
+            std::cout << "(" << p.x << ", " << p.y << ")";
+        }
+        else
+        {
+            std::cout << "(" << p.x << ", " << p.y << ") -> ";
+        }
+    }
+}
+
 bool Path::validPath(Cell src, Cell dest)
 {
     return findPath(src, dest) != nullptr;
@@ -27,14 +42,14 @@ bool Path::validPath(Cell src, Cell dest)
 std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
 {
     bool destinationFound = false;
-    unsigned int depth = 0;
+    unsigned int index = 0;
     int destinationDepth = 0;
     std::vector<PathUnit> path;
-    path.push_back(PathUnit(src.getX(), src.getY(), depth));
+    path.push_back(PathUnit(src.getX(), src.getY(), index));
 
-    while (!destinationFound && depth < path.size())
+    while (!destinationFound && index < path.size())
     {
-        std::vector<PathUnit> currentNeighbors(path[depth].getNeighbors());
+        std::vector<PathUnit> currentNeighbors(path[index].getNeighbors());
 
         // Filter neighbors
         std::vector<PathUnit> filteredNeighbors(validateNeighbors(currentNeighbors, path));
@@ -46,13 +61,13 @@ std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
         }
 
         // Check for destination in filteredNeighbors
-        if (PathUnit(dest.getX(), dest.getY(), depth).containedIn(path))
+        if (PathUnit(dest.getX(), dest.getY(), 0).containedIn(path))
         {
             // Destination is found
             destinationFound = true;
-            destinationDepth = depth;
+            destinationDepth = path.back().depth;
         }
-        depth++;
+        index++;
     }
 
     if (!destinationFound)
@@ -92,9 +107,35 @@ std::vector<PathUnit> Path::validateNeighbors(std::vector<PathUnit> v, std::vect
 
 std::vector<PathUnit> Path::getShortestPath(std::vector<PathUnit> path, int destinationDepth)
 {
-    // The first and last elements in path are the Start and End PathUnits
+    int targetDepth = destinationDepth - 1;
+	bool done = false;
+    PathUnit current(path.back());
+	std::vector<PathUnit> filteredPath;
+	filteredPath.push_back(current);
 
-    // NOTICE: This will be complete at a later time since it is not a requirement of Assignment 1
-    std::vector<PathUnit> p;
-    return p;
+	while (!done)
+	{
+	    for (PathUnit p : path)
+        {
+            if (p.depth == targetDepth && p.isNeighbor(current))
+            {
+                filteredPath.push_back(p);
+                current = p;
+                targetDepth--;
+
+                if (targetDepth < 0)
+                {
+                    done = true;
+                }
+                break;
+            }
+        }
+	}
+
+	std::reverse(std::begin(filteredPath), std::end(filteredPath));
+
+	// Test
+	printPath(filteredPath);
+
+    return filteredPath;
 }
