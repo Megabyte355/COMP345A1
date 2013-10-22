@@ -7,9 +7,10 @@
 
 #include "Map.h"
 
-Map::Map() :
-        Map(10, 10)
+Map::Map()
 {
+    mapWidth = 10;
+    mapHeight = 10;
 }
 
 Map::~Map()
@@ -89,31 +90,32 @@ void Map::setCell(Cell::CellType cellType, int x, int y)
 
 void Map::setStartCell(int x, int y)
 {
-    if (getStartCell() == nullptr)
+    if (getStartCell() != nullptr)
     {
-        matrix[x][y].reset();
-        matrix[x][y] = std::make_shared<Cell>(Cell::CellType::Start);
-        matrix[x][y]->setX(x);
-        matrix[x][y]->setY(y);
+        getStartCell()->setType(Cell::CellType::Surface);
     }
-
+    matrix[x][y].reset();
+    matrix[x][y] = std::make_shared<Cell>(Cell::CellType::Start);
+    matrix[x][y]->setX(x);
+    matrix[x][y]->setY(y);
 }
 
 void Map::setEndCell(int x, int y)
 {
-    if (getEndCell() == nullptr)
+    if (getEndCell() != nullptr)
     {
-        matrix[x][y].reset();
-        matrix[x][y] = std::make_shared<Cell>(Cell::CellType::End);
-        matrix[x][y]->setX(x);
-        matrix[x][y]->setY(y);
+        getEndCell()->setType(Cell::CellType::Surface);
     }
+    matrix[x][y].reset();
+    matrix[x][y] = std::make_shared<Cell>(Cell::CellType::End);
+    matrix[x][y]->setX(x);
+    matrix[x][y]->setY(y);
 }
 
 bool Map::isValidMap()
 {
     std::shared_ptr<Cell> start = getStartCell();
-    std::shared_ptr<Cell> end = getStartCell();
+    std::shared_ptr<Cell> end = getEndCell();
 
     bool hasStart = start != nullptr;
     bool hasEnd = end != nullptr;
@@ -145,180 +147,7 @@ bool Map::isValidCell(int x, int y)
 {
     return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
 }
-/*
-std::vector<PathUnit> Map::findPath(Cell src, Cell dest)
-{
 
-    unsigned int depth = 0;
-    int foundAtDepth = 0;
-    bool destinationFound = false;
-
-    PathUnit start(src.getX(), src.getY(), depth);
-    std::vector<PathUnit> path;
-    path.push_back(start);
-
-    // Check if source and destination are valid cells
-    if (!isValidCell(src) || !isValidCell(dest))
-    {
-        path.clear();
-        return path;
-    }
-
-    // The real algorithm begins here
-    while (!destinationFound)
-    {
-        // If we still didn't find the destination, it means it's unreachable
-        if (depth > path.size())
-        {
-            path.clear();
-            return path;
-        }
-
-        std::vector<PathUnit> neighbors(path[depth].getNeighbors());
-        for (PathUnit n : neighbors)
-        {
-
-            // Check if it's out of boundary
-            if (!isValidCell(n.x, n.y))
-            {
-                continue;
-            }
-
-            // Check if it is already in path
-            bool alreadyInPath = false;
-            for (PathUnit p : path)
-            {
-                if (n == p)
-                {
-                    alreadyInPath = true;
-                    break;
-                }
-            }
-            if (alreadyInPath)
-            {
-                continue;
-            }
-
-            // Check Type
-            Cell::CellType type = matrix[n.x][n.y]->getType();
-            if (type == Cell::CellType::Empty || type == Cell::CellType::Wall)
-            {
-                continue;
-            }
-
-            // Check if it's the destination
-            if (n.x == dest.getX() && n.y == dest.getY())
-            {
-                destinationFound = true;
-                foundAtDepth = depth;
-            }
-
-            path.push_back(n);
-        }
-
-        depth++;
-    }
-
-    // Constructing the reversedPath
-    if (destinationFound)
-    {
-        int targetDepth = foundAtDepth - 1;
-        bool pathComplete = false;
-        std::vector<PathUnit> candidates;
-        std::vector<PathUnit> reversedPath;
-
-        reversedPath.push_back(path.back());
-
-        while (!pathComplete)
-        {
-            // Find candidates from path (based on targetDepth)
-            for (PathUnit p : path)
-            {
-                if (p.depth == targetDepth)
-                {
-                    candidates.push_back(p);
-                }
-            }
-
-            // Compare neighbors of reversedPath.back()
-            std::vector<PathUnit> currentNeighbors(reversedPath.back().getNeighbors());
-            bool neighborMatch = false;
-            for (PathUnit c : candidates)
-            {
-                for (PathUnit n : currentNeighbors)
-                {
-                    if (c == n && c.depth == targetDepth)
-                    {
-                        // A PathUnit belonging to the correct path is found
-                        reversedPath.push_back(c);
-                    }
-                }
-            }
-
-            for (unsigned int c = 0; c < candidates.size() && !neighborMatch; c++)
-            {
-                for (unsigned int n = 0; n < currentNeighbors.size() && !neighborMatch; n++)
-                {
-                    if (candidates[c] == currentNeighbors[n] && candidates[c].depth == targetDepth)
-                    {
-                        // A PathUnit belonging to the correct path is found
-                        reversedPath.push_back(candidates[c]);
-                        neighborMatch = true;
-
-                        if ((getStartCell()->getX() == reversedPath.back().x)
-                                && (getStartCell()->getY() == reversedPath.back().y))
-                        {
-                            pathComplete = true;
-                        }
-
-                    }
-                }
-            }
-            targetDepth--;
-            candidates.clear();
-        }
-
-        // Reverse the reveredPath
-        std::vector<PathUnit> correctPath;
-        for (unsigned int i = reversedPath.size() - 1; i >= 0; i--)
-        {
-            correctPath.push_back(reversedPath[i]);
-        }
-
-//        PathUnit destination(path.back());
-//        filteredPath.push_back(path.back());
-//
-//        bool done = false;
-//
-//        while (!done)
-//        {
-//            for (PathUnit p : path)
-//            {
-//                if (p.depth == targetDepth)
-//                {
-//                    candidates.push_back(p);
-//                }
-//            }
-//
-//            std::vector<PathUnit> neighborPreview(destination.getNeighbors());
-//            for(PathUnit c : candidates)
-//            {
-//                for (PathUnit n : neighborPreview)
-//                {
-//                    if (c == n && c.depth == targetDepth)
-//                    {
-//                        filteredPath.push_back(c);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-    }
-    path.clear();
-    return path;
-
-}
-*/
 void Map::printMap()
 {
     std::cout << "  ";
@@ -355,4 +184,17 @@ void Map::printMap()
         }
         std::cout << std::endl;
     }
+}
+
+void Map::resetMap()
+{
+    for (int i = 0; i < mapWidth; i++)
+    {
+        for (int j = 0; j < mapHeight; j++)
+        {
+            matrix[i][j].reset();
+            matrix[i][j] = std::make_shared<Cell>(Cell::CellType::Surface);
+        }
+    }
+
 }

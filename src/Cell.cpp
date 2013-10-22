@@ -33,6 +33,11 @@ Cell::CellType Cell::getType()
     return type;
 }
 
+void Cell::setType(CellType type)
+{
+    this->type = type;
+}
+
 void Cell::setX(int x)
 {
     this->x = x;

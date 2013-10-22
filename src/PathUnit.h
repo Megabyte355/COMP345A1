@@ -19,7 +19,7 @@ class PathUnit
         int depth;
 
         PathUnit();
-        PathUnit(int,int);
+        PathUnit(int,int,int);
         ~PathUnit();
 
         bool operator==(PathUnit&);

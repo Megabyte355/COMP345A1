@@ -20,6 +20,7 @@ class Cell
         ~Cell();
 
         CellType getType();
+        void setType(CellType);
 
         void setX(int);
         void setY(int);

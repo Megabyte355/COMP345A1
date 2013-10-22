@@ -44,9 +44,8 @@ class Map
         // Path
         //std::vector<PathUnit> findPath(Cell, Cell);
 
-
-        // Test
         void printMap();
+        void resetMap();
     private:
         std::vector<std::vector<std::shared_ptr<Cell>>> matrix;
         int mapWidth;

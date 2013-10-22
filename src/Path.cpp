@@ -26,13 +26,14 @@ bool Path::validPath(Cell src, Cell dest)
 
 std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
 {
-    std::vector<PathUnit> path;
-    path.push_back(PathUnit(src.getX(), src.getY()));
-
     bool destinationFound = false;
     unsigned int depth = 0;
     int destinationDepth = 0;
-    while (!destinationFound || depth < path.size())
+    std::vector<PathUnit> path;
+    path.push_back(PathUnit(src.getX(), src.getY(), depth));
+
+
+    while (!destinationFound && depth < path.size())
     {
         std::vector<PathUnit> currentNeighbors(path[depth].getNeighbors());
 
@@ -46,7 +47,7 @@ std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
         }
 
         // Check for destination in filteredNeighbors
-        if (PathUnit(dest.getX(), dest.getY()).containedIn(path))
+        if (PathUnit(dest.getX(), dest.getY(), depth).containedIn(path))
         {
             // Destination is found
             destinationFound = true;
@@ -87,13 +88,14 @@ std::vector<PathUnit> Path::validateNeighbors(std::vector<PathUnit> v, std::vect
             }
         }
     }
-
     return goodPathUnits;
 }
 
 std::vector<PathUnit> Path::getShortestPath(std::vector<PathUnit> path, int destinationDepth)
 {
-    // TO DO
+    // The first and last elements in path are the Start and End PathUnits
+
+    // NOTICE: This will be complete at a later time since it is not a requirement of Assignment 1
     std::vector<PathUnit> p;
     return p;
 }
