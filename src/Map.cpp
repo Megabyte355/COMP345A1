@@ -155,19 +155,43 @@ void Map::printMap()
         std::cout << j << " ";
         for (int i = 0; i < mapWidth; i++)
         {
-            if (matrix[i][j]->getType() == Cell::CellType::Surface)
+            Cell currentCell = *matrix[i][j];
+            if (currentCell.getType() == Cell::CellType::Surface)
             {
-                std::cout << "_";
+                if (currentCell.getOccupant() != nullptr)
+                {
+                    CellOccupant::OccupantType type = currentCell.getOccupant()->getType();
+                    if (type == CellOccupant::OccupantType::Item)
+                    {
+                        std::cout << "I";
+                    }
+                    else if (type == CellOccupant::OccupantType::Player)
+                    {
+                        std::cout << "P";
+                    }
+                    else if (type == CellOccupant::OccupantType::Monster)
+                    {
+                        std::cout << "M";
+                    }
+                    else
+                    {
+                        std::cout << "?";
+                    }
+                }
+                else
+                {
+                    std::cout << "_";
+                }
             }
-            else if (matrix[i][j]->getType() == Cell::CellType::Wall)
+            else if (currentCell.getType() == Cell::CellType::Wall)
             {
                 std::cout << "X";
             }
-            else if (matrix[i][j]->getType() == Cell::CellType::Start)
+            else if (currentCell.getType() == Cell::CellType::Start)
             {
                 std::cout << "S";
             }
-            else if (matrix[i][j]->getType() == Cell::CellType::End)
+            else if (currentCell.getType() == Cell::CellType::End)
             {
                 std::cout << "E";
             }

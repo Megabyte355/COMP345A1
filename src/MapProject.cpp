@@ -10,10 +10,6 @@
 #include "Map.h"
 using namespace std;
 
-// Forward declarations
-int displayMainMenu();
-void processMenuRequest(int, Map*);
-
 int displayMainMenu()
 {
     bool validOption = false;
@@ -27,7 +23,7 @@ int displayMainMenu()
         cout << "3 - Set Start point" << endl;
         cout << "4 - Set End point" << endl;
         cout << "5 - Change a cell's type" << endl;
-        cout << "6 - Place item on a cell" << endl;
+        cout << "6 - Place occupant on a cell" << endl;
         cout << "7 - Reset the map" << endl;
         cout << "8 - Exit" << endl;
         cout << "Choice: ";
@@ -58,7 +54,7 @@ void processMenuRequest(int option, Map * m)
     {
         // Validate the map
         // NOTICE: A map is valid if there is a path from Start to End.
-        cout << "Validating the map..." << endl;
+        cout << endl << "Validating the map..." << endl;
         if (m->isValidMap())
         {
             cout << "Congratulations! Your map is valid!" << endl;
@@ -114,7 +110,7 @@ void processMenuRequest(int option, Map * m)
         // Change cell type
         int x = 0;
         int y = 0;
-        cout << "Enter coordinates of cell to be changed:" << endl;
+        cout << endl << "Enter coordinates of cell to be changed:" << endl;
         cout << "x = ";
         cin >> x;
         cout << "y = ";
@@ -154,18 +150,63 @@ void processMenuRequest(int option, Map * m)
     else if (option == 6)
     {
         // Place an item
+        // Change cell type
+        int x = 0;
+        int y = 0;
+        cout << endl << "Enter coordinates of occupant:" << endl;
+        cout << "x = ";
+        cin >> x;
+        cout << "y = ";
+        cin >> y;
+
+        if (m->isValidCell(x, y))
+        {
+            int occupantChoice = 0;
+            cout << "Choose an occupant type:" << endl;
+            cout << "1 - Item" << endl;
+            cout << "2 - Player" << endl;
+            cout << "3 - Monster" << endl;
+            cin >> occupantChoice;
+
+            if (occupantChoice == 1)
+            {
+                m->getCell(x, y)->setOccupant(
+                        std::shared_ptr<CellOccupant>(
+                                std::make_shared<CellOccupant>(CellOccupant(CellOccupant::OccupantType::Item))));
+            }
+            else if (occupantChoice == 2)
+            {
+                m->getCell(x, y)->setOccupant(
+                        std::shared_ptr<CellOccupant>(
+                                std::make_shared<CellOccupant>(CellOccupant(CellOccupant::OccupantType::Player))));
+            }
+            else if (occupantChoice == 3)
+            {
+                m->getCell(x, y)->setOccupant(
+                        std::shared_ptr<CellOccupant>(
+                                std::make_shared<CellOccupant>(CellOccupant(CellOccupant::OccupantType::Monster))));
+            }
+            else
+            {
+                cout << "Invalid occupant option." << endl;
+            }
+        }
+        else
+        {
+            cout << "The coordinates (" << x << ", " << y << ") are not valid.";
+        }
     }
     else if (option == 7)
     {
         // Reset map
-        cout << "Resetting map..." << endl;
+        cout << endl << "Resetting map..." << endl;
         m->resetMap();
         cout << "Map is reset." << endl;
     }
     else
     {
         // Option 8 - Exit
-        cout << "Have a nice day!" << endl;
+        cout << endl << "Have a nice day!" << endl;
     }
 }
 

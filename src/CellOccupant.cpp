@@ -12,7 +12,21 @@ CellOccupant::CellOccupant()
     type = OccupantType::Item;
 }
 
+CellOccupant::CellOccupant(OccupantType type)
+{
+    this->type = type;
+}
+
 CellOccupant::~CellOccupant()
 {
 }
 
+void CellOccupant::setType(OccupantType type)
+{
+    this->type = type;
+}
+
+CellOccupant::OccupantType CellOccupant::getType()
+{
+    return type;
+}

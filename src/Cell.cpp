@@ -9,7 +9,6 @@
 
 Cell::Cell()
 {
-    occupied = false;
     this->type = CellType::Empty;
     this->x = 0;
     this->y = 0;
@@ -17,7 +16,6 @@ Cell::Cell()
 
 Cell::Cell(CellType cellType)
 {
-    occupied = false;
     this->type = cellType;
     this->x = 0;
     this->y = 0;
@@ -55,4 +53,19 @@ int Cell::getX()
 int Cell::getY()
 {
     return y;
+}
+
+void Cell::clearOccupant()
+{
+    occupant.reset();
+}
+
+void Cell::setOccupant(std::shared_ptr<CellOccupant> occupant)
+{
+    this->occupant = occupant;
+}
+
+std::shared_ptr<CellOccupant> Cell::getOccupant()
+{
+    return occupant;
 }

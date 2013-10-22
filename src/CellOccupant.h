@@ -13,11 +13,17 @@ class CellOccupant
     public:
         enum OccupantType
         {
-            Item, Player, Monster
+            Item, Player, Monster, None
         };
+
         CellOccupant();
+        CellOccupant(OccupantType);
         ~CellOccupant();
 
+        void setType(OccupantType type);
+        OccupantType getType();
+
+    private:
         OccupantType type;
 };
 

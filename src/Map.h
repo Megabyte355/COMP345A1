@@ -40,11 +40,9 @@ class Map
         bool isValidCell(Cell);
         bool isValidCell(int, int);
 
-        // Path
-        //std::vector<PathUnit> findPath(Cell, Cell);
-
         void printMap();
         void resetMap();
+
     private:
         std::vector<std::vector<std::shared_ptr<Cell>>>matrix;
         int mapWidth;
