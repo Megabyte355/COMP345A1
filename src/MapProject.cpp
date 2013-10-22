@@ -10,6 +10,7 @@
 #include "Map.h"
 using namespace std;
 
+// Displays the main menu
 int displayMainMenu()
 {
     bool validOption = false;
@@ -42,6 +43,7 @@ int displayMainMenu()
     return choice;
 }
 
+// Process the option chosen by the user
 void processMenuRequest(int option, Map * m)
 {
     if (option == 1)
@@ -150,7 +152,6 @@ void processMenuRequest(int option, Map * m)
     else if (option == 6)
     {
         // Place an item
-        // Change cell type
         int x = 0;
         int y = 0;
         cout << endl << "Enter coordinates of occupant:" << endl;
