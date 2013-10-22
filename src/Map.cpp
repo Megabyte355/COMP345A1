@@ -131,7 +131,8 @@ bool Map::isValidMap()
 
 bool Map::isValidPath(Cell src, Cell dest)
 {
-    return !findPath(src, dest).empty();
+    //return !findPath(src, dest).empty();
+    return false;
 }
 
 bool Map::isValidCell(Cell c)
@@ -143,7 +144,7 @@ bool Map::isValidCell(int x, int y)
 {
     return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
 }
-
+/*
 std::vector<PathUnit> Map::findPath(Cell src, Cell dest)
 {
 
@@ -316,7 +317,7 @@ std::vector<PathUnit> Map::findPath(Cell src, Cell dest)
     return path;
 
 }
-
+*/
 void Map::printMap()
 {
     std::cout << "  ";

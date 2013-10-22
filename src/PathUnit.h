@@ -9,6 +9,7 @@
 #define PATHUNIT_H_
 
 #include <vector>
+#include <memory>
 
 class PathUnit
 {
@@ -18,10 +19,11 @@ class PathUnit
         int depth;
 
         PathUnit();
-        PathUnit(int,int,int);
+        PathUnit(int,int);
         ~PathUnit();
 
         bool operator==(PathUnit&);
+        bool containedIn(std::vector<PathUnit>);
         std::vector<PathUnit> getNeighbors();
 };
 

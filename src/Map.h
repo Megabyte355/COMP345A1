@@ -42,7 +42,7 @@ class Map
         bool isValidCell(int,int);
 
         // Path
-        std::vector<PathUnit> findPath(Cell, Cell);
+        //std::vector<PathUnit> findPath(Cell, Cell);
 
 
         // Test
