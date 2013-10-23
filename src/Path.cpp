@@ -25,7 +25,7 @@ void Path::printPath(std::vector<PathUnit> v)
     {
         if (p == v.back())
         {
-            std::cout << "(" << p.x << ", " << p.y << ")";
+            std::cout << "(" << p.x << ", " << p.y << ")" << std::endl;
         }
         else
         {
@@ -58,14 +58,14 @@ std::shared_ptr<std::vector<PathUnit>> Path::findPath(Cell src, Cell dest)
         for (std::vector<PathUnit>::iterator it = filteredNeighbors.begin(); it != filteredNeighbors.end(); it++)
         {
             path.push_back(*it);
-        }
 
-        // Check for destination in filteredNeighbors
-        if (PathUnit(dest.getX(), dest.getY(), 0).containedIn(path))
-        {
-            // Destination is found
-            destinationFound = true;
-            destinationDepth = path.back().depth;
+            // Check if it's the destination
+            if(it->x == dest.getX() && it->y == dest.getY())
+            {
+                destinationFound = true;
+                destinationDepth = it->depth;
+                break;
+            }
         }
         index++;
     }
@@ -133,8 +133,6 @@ std::vector<PathUnit> Path::getShortestPath(std::vector<PathUnit> path, int dest
 	}
 
 	std::reverse(std::begin(filteredPath), std::end(filteredPath));
-
-	// Test
 	printPath(filteredPath);
 
     return filteredPath;
